@@ -15,9 +15,9 @@ def home(request):
     return HttpResponse('Home!')
 
 def logout(request):
-    user_id = request.session.get('user_id')
-    if user_id:
-        del(user_id)
+    if request.session.get('user'):
+        del(request.session['user'])
+
     return redirect('/')
          
 
