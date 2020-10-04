@@ -7,6 +7,8 @@ from .forms import BoardForm
 
 
 def board_detail(request, pk):
+    print('pk::: ', pk, type(pk))
+    
     try:
         board = Board.objects.get(pk=pk)
     except Board.DoesNotExist:

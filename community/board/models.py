@@ -7,6 +7,7 @@ class Board(models.Model):
     writer  = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='작성자')
     registared_dttm = models.DateTimeField(auto_now_add=True, verbose_name='등록시간')
 
+    tags = models.ManyToManyField("tag.Tag", verbose_name='태그')
     # class has no objects member 에러 제거용
     objects = models.Manager()
 

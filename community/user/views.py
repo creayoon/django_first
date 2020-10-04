@@ -6,13 +6,14 @@ from .forms import LoginForm
 
 
 def home(request):
-    user_id = request.session.get('user')
+    # view에서 할 필요없이 template 안에서 바로 사용가능
+    # user_id = request.session.get('user')
 
-    if user_id:
-        user = User.objects.get(pk=user_id)
-        return HttpResponse(user.username)
+    # if user_id:
+    #     user = User.objects.get(pk=user_id)
+    #     return HttpResponse(user.username)
 
-    return HttpResponse('Home!')
+    return render(request, 'home.html')
 
 def logout(request):
     if request.session.get('user'):
