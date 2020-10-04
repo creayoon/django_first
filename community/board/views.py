@@ -3,12 +3,13 @@ from django.http import Http404
 from django.core.paginator import Paginator
 from .models import Board
 from user.models import User
+from tag.models import Tag
 from .forms import BoardForm
 
 
 def board_detail(request, pk):
     print('pk::: ', pk, type(pk))
-    
+
     try:
         board = Board.objects.get(pk=pk)
     except Board.DoesNotExist:
@@ -26,12 +27,19 @@ def board_write(request):
         if form.is_valid():
             user_id = request.session.get('user')
             user = User.objects.get(pk=user_id)
+            tags = form.cleaned_data['tags'].split(',')
 
             board = Board()
             board.title = form.cleaned_data['title']
             board.contents = form.cleaned_data['contents']
             board.writer = user
             board.save()
+
+            for tag in tags:
+                if not tag:
+                    continue
+                _tag, _ = Tag.objects.get_or_create(name=tag)
+                board.tags.add(_tag)
 
             return redirect('/board/list/')
     else:
