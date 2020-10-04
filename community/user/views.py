@@ -80,6 +80,6 @@ def register(request):
             user.save()
 
         print('res_data ::::::::::::: ', res_data)
-        return render(request, 'register.html', res_data)
-
+        # return render(request, 'register.html', res_data)
+        return redirect('/user/login')
     

@@ -23,12 +23,9 @@ class LoginForm(forms.Form):
             # except DoesNotExist:
             #     go = None
                 
-            user = User.objects.get(username=username)
-            if user.password:
-                if not check_password(password, user.password):
+            user_data = User.objects.get(username=username)
+            if user_data.password:
+                if not check_password(password, user_data.password):
                     self.add_error('password', '비밀번호를 틀렸습니다')
                 else:
-                    self.user_id = user.user_id
-            else:
-                print('::: user.password not exists:::', user.password)
-
+                    self.user_id = user_data.id
